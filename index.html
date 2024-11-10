@@ -1,134 +1,199 @@
-<html lang="en">
+<!DOCTYPE html>
+<html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Web Game</title>
+    <title>Oyun Adı</title>
     <style>
         body {
-            background-color: #00CFFF;
             font-family: Arial, sans-serif;
-            text-align: center;
+            background: linear-gradient(to right, #FFD700, #FF8C00);
             margin: 0;
             padding: 0;
-        }
-        .title {
-            font-size: 3em;
-            font-weight: bold;
-            color: white;
-            margin-top: 20px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        }
-        .button {
-            display: inline-block;
-            background-color: #FF4B4B;
-            color: black;
-            padding: 10px 20px;
-            border-radius: 10px;
-            font-size: 1.2em;
-            font-weight: bold;
-            margin: 10px;
-            cursor: pointer;
-            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        }
-        .box-container {
+            height: 100vh;
             display: flex;
+            flex-direction: column;
             justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 20px;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
         }
-        .box {
-            width: 100px;
-            height: 100px;
-            background-color: #FFB74D;
-            margin: 10px;
-            position: relative;
-            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        /* Menü çubuğu */
+        .navbar {
+            width: 100%;
+            background-color: #333;
+            color: white;
+            padding: 10px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 10;
+        }
+        .navbar h1 {
+            margin-left: 20px;
+            font-size: 1.5em;
+        }
+        .button-container {
+            margin-right: 20px;
+        }
+        .button-container button {
+            background-color: #00C853;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            margin-left: 10px;
+            border-radius: 8px;
+            font-size: 18px;
             cursor: pointer;
-            transition: transform 0.3s;
-            perspective: 1000px;
+            transition: background-color 0.3s;
         }
+        .button-container button:hover {
+            background-color: #008C34;
+        }
+
+        /* Kutu tasarımı */
+        .box-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 20px;
+            padding: 100px 20px 20px;  /* Üstteki menüyü hesaba katarak boşluk bırakma */
+            width: 100%;
+            max-width: 700px;
+            margin-top: 50px; /* Menü çubuğunun altına boşluk bırakma */
+        }
+
+        .box {
+            width: 250px;
+            height: 200px;
+            background-color: #00ff22;
+            margin: 30px;
+            position: relative;
+            box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.5);
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-radius: 10px;
+            overflow: hidden;
+            background: linear-gradient(45deg, #FF8A00, #FF4B4B);
+        }
+
         .box::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
-            height: 20px;
-            background-color: #FF8A00;
+            bottom: 0;
+            border: 5px solid #FFD700;
+            box-sizing: border-box;
         }
+
         .box-text {
             position: absolute;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 1em;
+            transform: translate(-50%, -50%) rotate(90deg); /* Başlangıçta metin baş aşağı */
+            font-size: 1.2em;
             font-weight: bold;
             color: black;
             display: none;
+            z-index: 2;
+            transition: transform 1s;
         }
+
         .box.open {
-            transform: rotateX(180deg);
-            animation: explode 0.5s forwards;
+            animation: explode 0.5s forwards, rotateBox 1s forwards;
+            box-shadow: 0 0 20px rgba(106, 255, 0, 0.7);
         }
+
         .box.open .box-text {
             display: block;
-            transform: translate(-50%, -50%) rotateX(180deg);
+            transform: translate(-50%, -50%) rotate(0deg); /* Dönme sonrası düz metin */
         }
+
         @keyframes explode {
             0% {
-                box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+                box-shadow: 0 0 10px rgba(38, 255, 0, 0.5);
             }
             100% {
-                box-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
+                box-shadow: 0 0 30px rgba(2, 255, 32, 0.7);
+            }
+        }
+
+        @keyframes rotateBox {
+            0% {
+                transform: rotate(0deg);
+            }
+            50% {
+                transform: rotate(180deg);
+            }
+            100% {
+                transform: rotate(360deg);
             }
         }
     </style>
 </head>
 <body>
-    <div class="title">Web Game</div>
-    <div class="button" onclick="startGame()">Start</div>
-    <div class="button" onclick="stopGame()">Stop</div>
-    <div class="button" onclick="restartGame()">Restart</div>
-    <div class="box-container" id="boxContainer">
-        <div class="box" onmouseover="openBox(this)">
-            <div class="box-text">Text 1</div>
-        </div>
-        <div class="box" onmouseover="openBox(this)">
-            <div class="box-text">Text 2</div>
-        </div>
-        <div class="box" onmouseover="openBox(this)">
-            <div class="box-text">Text 3</div>
-        </div>
-        <div class="box" onmouseover="openBox(this)">
-            <div class="box-text">Text 4</div>
-        </div>
-        <div class="box" onmouseover="openBox(this)">
-            <div class="box-text">Text 5</div>
-        </div>
-        <div class="box" onmouseover="openBox(this)">
-            <div class="box-text">Text 6</div>
+
+    <!-- Menü Çubuğu -->
+    <div class="navbar">
+        <h1>TOPU FIRLAT VE ÇEVİR!</h1>
+        <div class="button-container">
+            <button onclick="startGame()">Başla</button>
+            <button onclick="stopGame()">Durdur</button>
+            <button onclick="resetGame()">Yenile</button>
         </div>
     </div>
 
+    <!-- Kutu Bölgesi -->
+    <div class="box-container">
+        <div class="box" onclick="toggleBox(this)"><div class="box-text">1</div></div>
+        <div class="box" onclick="toggleBox(this)"><div class="box-text">2</div></div>
+        <div class="box" onclick="toggleBox(this)"><div class="box-text">3</div></div>
+        <div class="box" onclick="toggleBox(this)"><div class="box-text">4</div></div>
+        <div class="box" onclick="toggleBox(this)"><div class="box-text">5</div></div>
+        <div class="box" onclick="toggleBox(this)"><div class="box-text">6</div></div>
+    </div>
+
     <script>
+        let gameStarted = false;
+
         function startGame() {
-            document.getElementById('boxContainer').style.display = 'flex';
+            if (!gameStarted) {
+                gameStarted = true;
+                alert("Oyun Başladı!");
+            }
         }
 
         function stopGame() {
-            document.getElementById('boxContainer').style.display = 'none';
+            if (gameStarted) {
+                gameStarted = false;
+                alert("Oyun Durdu!");
+            }
         }
 
-        function restartGame() {
-            const boxes = document.querySelectorAll('.box');
+        function resetGame() {
+            alert("Oyun Yenilendi!");
+            let boxes = document.querySelectorAll('.box');
             boxes.forEach(box => {
                 box.classList.remove('open');
+                let text = box.querySelector('.box-text');
+                text.style.display = 'none';
             });
-            document.getElementById('boxContainer').style.display = 'flex';
         }
 
-        function openBox(box) {
-            box.classList.add('open');
+        function toggleBox(box) {
+            if (box.classList.contains('open')) {
+                box.classList.remove('open');
+                let text = box.querySelector('.box-text');
+                text.style.display = 'none';
+            } else {
+                box.classList.add('open');
+                let text = box.querySelector('.box-text');
+                text.style.display = 'block';
+            }
         }
     </script>
 </body>
