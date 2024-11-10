@@ -1,0 +1,135 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Game</title>
+    <style>
+        body {
+            background-color: #00CFFF;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .title {
+            font-size: 3em;
+            font-weight: bold;
+            color: white;
+            margin-top: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        .button {
+            display: inline-block;
+            background-color: #FF4B4B;
+            color: black;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-size: 1.2em;
+            font-weight: bold;
+            margin: 10px;
+            cursor: pointer;
+            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        .box-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        .box {
+            width: 100px;
+            height: 100px;
+            background-color: #FFB74D;
+            margin: 10px;
+            position: relative;
+            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            cursor: pointer;
+            transition: transform 0.3s;
+            perspective: 1000px;
+        }
+        .box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 20px;
+            background-color: #FF8A00;
+        }
+        .box-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1em;
+            font-weight: bold;
+            color: black;
+            display: none;
+        }
+        .box.open {
+            transform: rotateX(180deg);
+            animation: explode 0.5s forwards;
+        }
+        .box.open .box-text {
+            display: block;
+            transform: translate(-50%, -50%) rotateX(180deg);
+        }
+        @keyframes explode {
+            0% {
+                box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+            }
+            100% {
+                box-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="title">Web Game</div>
+    <div class="button" onclick="startGame()">Start</div>
+    <div class="button" onclick="stopGame()">Stop</div>
+    <div class="button" onclick="restartGame()">Restart</div>
+    <div class="box-container" id="boxContainer">
+        <div class="box" onmouseover="openBox(this)">
+            <div class="box-text">Text 1</div>
+        </div>
+        <div class="box" onmouseover="openBox(this)">
+            <div class="box-text">Text 2</div>
+        </div>
+        <div class="box" onmouseover="openBox(this)">
+            <div class="box-text">Text 3</div>
+        </div>
+        <div class="box" onmouseover="openBox(this)">
+            <div class="box-text">Text 4</div>
+        </div>
+        <div class="box" onmouseover="openBox(this)">
+            <div class="box-text">Text 5</div>
+        </div>
+        <div class="box" onmouseover="openBox(this)">
+            <div class="box-text">Text 6</div>
+        </div>
+    </div>
+
+    <script>
+        function startGame() {
+            document.getElementById('boxContainer').style.display = 'flex';
+        }
+
+        function stopGame() {
+            document.getElementById('boxContainer').style.display = 'none';
+        }
+
+        function restartGame() {
+            const boxes = document.querySelectorAll('.box');
+            boxes.forEach(box => {
+                box.classList.remove('open');
+            });
+            document.getElementById('boxContainer').style.display = 'flex';
+        }
+
+        function openBox(box) {
+            box.classList.add('open');
+        }
+    </script>
+</body>
+</html>
