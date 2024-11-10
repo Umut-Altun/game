@@ -184,6 +184,21 @@
                 let text = box.querySelector('.box-text');
                 text.style.display = 'none';
             });
+            shuffleNumbers(); // Sayıları karıştır ve kutulara yeniden yerleştir
+        }
+
+        // Sayıları rastgele sıraya koymak için kullanılan fonksiyon
+        function shuffleNumbers() {
+            let boxes = document.querySelectorAll('.box-text');
+            let numbers = [1, 2, 3, 4, 5, 6];
+
+            // Sayıları rastgele sıraya koy
+            numbers.sort(() => Math.random() - 0.5);
+
+            // Kutulara rastgele sıradaki numaraları yerleştir
+            boxes.forEach((box, index) => {
+                box.textContent = numbers[index];
+            });
         }
 
         function toggleBox(box) {
