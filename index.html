@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Oyun Adı</title>
+    <title>UMUT ALTUN</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background: linear-gradient(to right, #FFD700, #FF8C00);
+            background: linear-gradient(to right, #00a8c6, #0c005e);
             margin: 0;
             padding: 0;
             height: 100vh;
@@ -51,7 +51,7 @@
             transition: background-color 0.3s;
         }
         .button-container button:hover {
-            background-color: #008C34;
+            background-color: #8c0000;
         }
 
         /* Kutu tasarımı */
@@ -63,6 +63,7 @@
             width: 100%;
             max-width: 700px;
             margin-top: 50px; /* Menü çubuğunun altına boşluk bırakma */
+            justify-content: center; /* Kutuları ortalamak için */
         }
 
         .box {
@@ -74,9 +75,9 @@
             box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.5);
             cursor: pointer;
             transition: transform 0.3s, box-shadow 0.3s;
-            border-radius: 10px;
+            border-radius: 20px;
             overflow: hidden;
-            background: linear-gradient(45deg, #FF8A00, #FF4B4B);
+            background: linear-gradient(45deg, #190089, #00d0ff);
         }
 
         .box::before {
@@ -86,7 +87,8 @@
             left: 0;
             right: 0;
             bottom: 0;
-            border: 5px solid #FFD700;
+            border-radius: 20px;
+            border: 5px solid #00fffb;
             box-sizing: border-box;
         }
 
@@ -95,9 +97,9 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%) rotate(90deg); /* Başlangıçta metin baş aşağı */
-            font-size: 1.2em;
+            font-size: 5em;
             font-weight: bold;
-            color: black;
+            color: rgb(255, 255, 255);
             display: none;
             z-index: 2;
             transition: transform 1s;
@@ -105,7 +107,7 @@
 
         .box.open {
             animation: explode 0.5s forwards, rotateBox 1s forwards;
-            box-shadow: 0 0 20px rgba(106, 255, 0, 0.7);
+            box-shadow: 0 0 20px rgb(255, 0, 0);
         }
 
         .box.open .box-text {
@@ -115,10 +117,10 @@
 
         @keyframes explode {
             0% {
-                box-shadow: 0 0 10px rgba(38, 255, 0, 0.5);
+                box-shadow: 0 0 10px rgb(38, 255, 0);
             }
             100% {
-                box-shadow: 0 0 30px rgba(2, 255, 32, 0.7);
+                box-shadow: 0 0 30px rgb(0, 255, 30);
             }
         }
 
@@ -139,7 +141,7 @@
 
     <!-- Menü Çubuğu -->
     <div class="navbar">
-        <h1>TOPU FIRLAT VE ÇEVİR!</h1>
+        <h1>"TOPU FIRLAT VE KARTI ÇEVİR !"</h1>
         <div class="button-container">
             <button onclick="startGame()">Başla</button>
             <button onclick="stopGame()">Durdur</button>
